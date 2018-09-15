@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+		<title>Security Token Foundation</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<meta name="viewport" content="user-scalable=no, width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui" />
+
+		<meta name="theme-color" content="#3F6EBF" />
+		<meta name="msapplication-navbutton-color" content="#3F6EBF" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="#3F6EBF" />
+
+		<!-- Favicons
+		================================================== -->
+		<link rel="shortcut icon" href="img/favicon.html">
+		<link rel="apple-touch-icon" href="img/apple-touch-icon.html">
+		<link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.html">
+		<link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.html">
+
+		<!-- CSS
+		================================================== -->
+		<link rel="stylesheet" href="css/style.min.css" type="text/css">
+
+		<!-- Load google font
+		================================================== -->
+		<script type="text/javascript">
+			WebFontConfig = {
+				google: { families: [ 'Open+Sans:300,400,500','Lato:900', 'Poppins:400', 'Catamaran:300,400,500,600,700'] }
+			};
+			(function() {
+				var wf = document.createElement('script');
+				wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + 
+				'://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+				wf.type = 'text/javascript';
+				wf.async = 'true';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(wf, s);
+			})();
+		</script>
+
+		<!-- Load other scripts
+		================================================== -->
+		<script type="text/javascript">
+			var _html = document.documentElement,
+				isTouch = (('ontouchstart' in _html) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints));
+
+			_html.className = _html.className.replace("no-js","js");
+
+			isTouch ? _html.classList.add("touch") : _html.classList.add("no-touch");
+		</script>
+		<script type="text/javascript" src="js/device.min.js"></script>
+	</head>
+
+	<body>
+		<link rel="stylesheet" type="text/css" href="demo/demo.css">
+
+		<!-- start start screen -->
+		<div id="start-screen" class="start-screen--light start-screen--style-1" style="z-index: 0">
+
+			<div class="pattern"
+				style="background: -moz-linear-gradient(0deg, rgba(114,76,253,1) 0%, rgba(19,127,237,1) 100%);
+				background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(114,76,253,1)), color-stop(100%, rgba(19,127,237,1)));
+				background: -webkit-linear-gradient(0deg, rgba(114,76,253,1) 0%, rgba(19,127,237,1) 100%);
+				background: -o-linear-gradient(0deg, rgba(114,76,253,1) 0%, rgba(19,127,237,1) 100%);
+				background: -ms-linear-gradient(0deg, rgba(114,76,253,1) 0%, rgba(19,127,237,1) 100%); 
+				background: linear-gradient(90deg, rgba(114,76,253,1) 0%, rgba(19,127,237,1) 100%);"></div>
+
+
+			<ul class="subnavigation">
+				<!--
+				<li><a href="#features">Features</a></li>-->
+				<li><a class="custom-btn custom-btn--small custom-btn--style-3" href="mailto:contact@nystx.com">Contact Us</a></li>
+			</ul>
+
+			<div class="start-screen__content  text--center">
+				<div class="start-screen__content__inner">
+					<div class="grid grid--container">
+						<div class="row row--xs-middle">
+							<div class="col col--lg-10">
+								<div class="row row--xs-middle row--xs-center">
+									<div class="col col--md-auto  col-MB-20">
+										<p class="__title">Security Token Foundation</p>
+									</div>
+
+									<div class="col col--md-auto  col-MB-20">
+										<p class="__subtitle">Setting the standard <br> <i>for</i> Blockchain Security Tokens</p>
+									</div>
+								</div>
+
+								<p>Sponsored by</p> <a href="http://www.nystx.com">
+					<img width="175" height="32" src="img/logo-full-white.png"/>
+					
+				</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<canvas class="scene scene--full" id="scene"></canvas>
+				<script type="x-shader/x-vertex" id="wrapVertexShader">
+					#define PI 3.1415926535897932384626433832795
+					attribute float size;
+					void main() {
+						vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+						gl_PointSize = 4.0;
+						gl_Position = projectionMatrix * mvPosition;
+					}
+				</script>
+				<script type="x-shader/x-fragment" id="wrapFragmentShader">
+					uniform sampler2D texture;
+					void main(){
+						vec4 textureColor = texture2D( texture, gl_PointCoord );
+						if ( textureColor.a < 0.3 ) discard;
+						// vec4 dotColor = vec4(0.06, 0.18, 0.36, 0.4);
+
+						//vec4 dotColor = vec4(0.06, 0.7, 0.4, 0.7);
+						vec4 dotColor = vec4(0.26, 0.17, 0.65, 0.7);
+						vec4 color = dotColor * textureColor;
+						gl_FragColor = color;
+					}
+				</script>
+
+				<script src="../../../cdnjs.cloudflare.com/ajax/libs/three.js/91/three.min.js"></script>
+				<script src="../../../cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"></script>
+
+				<script type="text/javascript">
+					var canvas = document.querySelector('#scene');
+					var width = canvas.offsetWidth,
+						height = canvas.offsetHeight;
+
+					var renderer = new THREE.WebGLRenderer({
+						canvas: canvas,
+						antialias: true,
+						alpha: true
+					});
+					renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
+					renderer.setSize(width, height);
+					renderer.setClearColor(0x000000, 0);
+
+					var scene = new THREE.Scene();
+
+					var camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 2000);
+					camera.position.set(0, 0, 80);
+
+					var loader = new THREE.TextureLoader();
+					loader.crossOrigin = "Anonymous";
+					var dotTexture = loader.load('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAMFBMVEVMaXH////////////////////////////////////////////////////////////6w4mEAAAAD3RSTlMAH6eN8Q6A6sXaVWEGdDZ7wvYCAAABNElEQVR4XoXWv0oDQRAG8BGJKJHD2iZd2rP1AWzSXApJKkEEa6tAuk1nIySQxi4E7M830NIXsPZeIceS+xPCuGhYbpPd+b76B7c3uzuz1Mzlw3Oix90l+RNd8y7zzAfuFmxTfR+CgeJGisd90FbspHh3wdGU91JeOOCND9JrgmP25IpszmMfyD8t+GJvXiyI/SB3ViCtIg2BeleDJAT0fy1OOZjJH/gIgw2ZtFQYFH0DTljIvQFDCYwM+JHA1oCFBCqiiMVkts7Bap/JYEYdGawolUFNTzJYUyyDnKYyKEnJoKJEBpoYBAGNPlHARcLfhIWCpYabBbcbHhh45OChxcceX5xbCdzAywuvP2ogsAXBJgbbIG6kuBXjZo7HAR4oeCThoYbHIh6seDTj4W6fB6/u8+AX8dE3oDCbIgYAAAAASUVORK5CYII=');
+
+					var radius = 50;
+					var sphereGeom = new THREE.IcosahedronGeometry(radius, 5);
+					var dotsGeom = new THREE.Geometry();
+					var bufferDotsGeom = new THREE.BufferGeometry();
+					var positions = new Float32Array(sphereGeom.vertices.length * 3);
+					for (var i = 0;i<sphereGeom.vertices.length;i++) {
+						var vector = sphereGeom.vertices[i];
+						animateDot(i, vector);
+						dotsGeom.vertices.push(vector);
+						vector.toArray(positions, i * 3);
+					}
+
+					function animateDot(index, vector) {
+							TweenMax.to(vector, 4, {
+								x: 0,
+								z: 0,
+								ease:Back.easeOut,
+								delay: Math.abs(vector.y/radius) * 2,
+								repeat:-1,
+								yoyo: true,
+								yoyoEase:Back.easeOut,
+								onUpdate: function () {
+									updateDot(index, vector);
+								}
+							});
+					}
+					function updateDot(index, vector) {
+							positions[index*3] = vector.x;
+							positions[index*3+2] = vector.z;
+					}
+
+					var attributePositions = new THREE.BufferAttribute(positions, 3);
+					bufferDotsGeom.addAttribute('position', attributePositions);
+					var shaderMaterial = new THREE.ShaderMaterial({
+						uniforms: {
+							texture: {
+								value: dotTexture
+							}
+						},
+						vertexShader: document.getElementById("wrapVertexShader").textContent,
+						fragmentShader: document.getElementById("wrapFragmentShader").textContent,
+						transparent:true
+					});
+					var dots = new THREE.Points(bufferDotsGeom, shaderMaterial);
+					scene.add(dots);
+
+					function render(a) {
+						dots.geometry.verticesNeedUpdate = true;
+						dots.geometry.attributes.position.needsUpdate = true;
+						renderer.render(scene, camera);
+					}
+
+					function onResize() {
+						canvas.style.width = '';
+						canvas.style.height = '';
+						width = canvas.offsetWidth;
+						height = canvas.offsetHeight;
+						camera.aspect = width / height;
+						camera.updateProjectionMatrix();  
+						renderer.setSize(width, height);
+					}
+
+					var mouse = new THREE.Vector2(0.8, 0.5);
+					function onMouseMove(e) {
+						mouse.x = (e.clientX / window.innerWidth) - 0.5;
+						mouse.y = (e.clientY / window.innerHeight) - 0.5;
+						TweenMax.to(dots.rotation, 4, {
+							x : (mouse.y * Math.PI * 0.5),
+							z : (mouse.x * Math.PI * 0.2),
+							ease:Power1.easeOut
+						});
+					}
+
+					TweenMax.ticker.addEventListener("tick", render);
+					window.addEventListener("mousemove", onMouseMove);
+					var resizeTm;
+					window.addEventListener("resize", function(){
+						resizeTm = clearTimeout(resizeTm);
+						resizeTm = setTimeout(onResize, 200);
+					});
+				</script>
+			</div>
+
+		</div>
+		<!-- end start screen -->
+
+		
+
+			
+		
+
+		<div id="btn-to-top-wrap">
+			<a id="btn-to-top" class="circled" href="javascript:void(0);" data-visible-offset="800"></a>
+		</div>
+
+		<script src="../../../ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/jquery-2.2.4.min.js"><\/script>')</script>
+
+		<script type="text/javascript" src="js/main.min.js"></script>
+	</body>
+
+</html>
